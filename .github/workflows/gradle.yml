@@ -24,20 +24,11 @@ jobs:
     steps:
     - name: "Check Out"
       uses: actions/checkout@v3
-    - name: "🔧 Setup GraalVM CE"
-      uses: graalvm/setup-graalvm@v1
+    - name: Build the Docker image
+      uses: docker/build-push-action@v4.0.0
       with:
-        version: 11
-        java-version: 11
-        components: 'native-image'
-
-    - name: "🔧 Setup Gradle"
-      uses: gradle/gradle-build-action@v2
-
-    - name: "🛠 Build with Gradle"
-      id: gradle
-      run: |
-        ./gradlew check --no-daemon --continue
+        context: .
+        tags: tms:latest
 
 
 
