@@ -8,6 +8,7 @@ import io.micronaut.http.annotation.Get
 class HealthCheckRoute {
     @Get
     fun index(): HttpStatus {
+        println("Health check...")
         return HttpStatus.OK
     }
 }
