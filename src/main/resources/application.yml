@@ -11,7 +11,9 @@ micronaut:
         paths: classpath:META-INF/swagger/views/swagger-ui
         mapping: /swagger-ui/**
 netty.default.allocator.max-order: 3
-test-resources:
-  containers:
-    mongodb:
-      db-name: test
+mongodb:
+  uri: mongodb://localhost:27017/tms
+#test-resources:
+#  containers:
+#    mongodb:
+#      db-name: test
