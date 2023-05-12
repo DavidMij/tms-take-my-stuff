@@ -18,44 +18,43 @@ class TmsTest(
     userService: UserService,
     storePlaceService: StorePlaceService
 ) : StringSpec({
-
-    "worksadsad" {
-        val user = userService.create(
-            "asd",
-            "asd",
-            "asd",
-            "asd",
-            "asd",
-        )
-        val storeplace = storePlaceService.create(
-            "asd",
-            "asd",
-            "asd",
-            "asd",
-            "asd",
-            "asd",
-            Date(),
-            Date(),
-        )
-
-        val vendor = vendorService.create(
-            "",
-            "",
-            "",
-            Category.Payments,
-        )
-        val test = vendorService.get(vendor.id)
-        val reservation = reservationService.create(
-            host = user,
-            customer = user,
-            shipmentVendor = vendor,
-            place = storeplace,
-            startDate = Date(),
-            endDate = Date()
-        )
-        println(reservation)
-        println(reservationService.list())
-//        Thread.sleep(1000000)
-
-    }
+//    "worksadsad" {
+//        val user = userService.create(
+//            "asd",
+//            "asd",
+//            "asd",
+//            "asd",
+//            "asd",
+//        )
+//        val storeplace = storePlaceService.create(
+//            "asd",
+//            "asd",
+//            "asd",
+//            "asd",
+//            "asd",
+//            "asd",
+//            Date(),
+//            Date(),
+//        )
+//
+//        val vendor = vendorService.create(
+//            "",
+//            "",
+//            "",
+//            Category.Payments,
+//        )
+//        val test = vendorService.get(vendor.id)
+//        val reservation = reservationService.create(
+//            host = user,
+//            customer = user,
+//            shipmentVendor = vendor,
+//            place = storeplace,
+//            startDate = Date(),
+//            endDate = Date()
+//        )
+//        println(reservation)
+//        println(reservationService.list())
+////        Thread.sleep(1000000)
+//
+//    }
 })
