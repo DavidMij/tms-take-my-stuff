@@ -26,7 +26,7 @@ const Home = () => {
       </h3>
       <div className="grid grid-cols-3 gap-20">
         {images.map((i, idx) => (
-          <div>
+          <div key={idx}>
             <div className="w-full h-[250px] image-reflection">
               <img
                 className="w-full h-full rounded-[20px]"

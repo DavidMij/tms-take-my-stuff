@@ -2,10 +2,10 @@ import React from "react";
 import Header from "../components/shared/Header";
 import { Outlet } from "react-router-dom";
 
-const Main = () => {
+const Main = (props) => {
   return (
     <>
-      <Header />
+      <Header user={props.user} />
       <Outlet />
     </>
   );
