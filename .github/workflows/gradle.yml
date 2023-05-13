@@ -33,14 +33,14 @@ jobs:
           context: .
           push: true
           tags: |
-            ${{ secrets.DOCKER_USERNAME }}/tms/back:${{ github.sha }}
-            ${{ secrets.DOCKER_USERNAME }}/tms/back:latest
+            ${{ secrets.DOCKER_USERNAME }}/tms-back:${{ github.sha }}
+            ${{ secrets.DOCKER_USERNAME }}/tms-back:latest
       - name: Build FrontEnd Docker Image
         uses: docker/build-push-action@v2
         with:
           context: frontend/
           push: true
           tags: |
-            ${{ secrets.DOCKER_USERNAME }}/tms/front:${{ github.sha }}
-            ${{ secrets.DOCKER_USERNAME }}/tms/front:latest
+            ${{ secrets.DOCKER_USERNAME }}/tms-front:${{ github.sha }}
+            ${{ secrets.DOCKER_USERNAME }}/tms-front:latest
     
