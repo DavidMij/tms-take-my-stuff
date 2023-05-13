@@ -9,7 +9,7 @@ name: Kotlin and Docker Build
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "main" , "release/*"]
   pull_request:
     branches: [ "main" ]
 
@@ -27,12 +27,20 @@ jobs:
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_TOKEN }}
-      - name: Build Docker Image
+      - name: Build BackEnd Docker Image
         uses: docker/build-push-action@v2
         with:
           context: .
           push: true
           tags: |
-            ${{ secrets.DOCKER_USERNAME }}/tms:${{ github.sha }}
-            ${{ secrets.DOCKER_USERNAME }}/tms:latest
+            ${{ secrets.DOCKER_USERNAME }}/tms-back:${{ github.sha }}
+            ${{ secrets.DOCKER_USERNAME }}/tms-back:latest
+      - name: Build FrontEnd Docker Image
+        uses: docker/build-push-action@v2
+        with:
+          context: frontend/
+          push: true
+          tags: |
+            ${{ secrets.DOCKER_USERNAME }}/tms-front:${{ github.sha }}
+            ${{ secrets.DOCKER_USERNAME }}/tms-front:latest
     

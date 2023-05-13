@@ -2,6 +2,8 @@ micronaut:
   application.name: tms
   server:
     port: 8080
+    cors:
+      enabled: true
   router:
     static-resources:
       swagger:

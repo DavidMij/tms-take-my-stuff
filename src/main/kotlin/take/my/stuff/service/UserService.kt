@@ -47,4 +47,12 @@ class UserService(private val userRepository: UserRepository) {
 
     fun get(id: String): User? = userRepository.findById(ObjectId(id)).getOrElse { null }?.toDto()
 
+    fun getByEmail(email: String): User? = userRepository.findByEmail(email).getOrElse {null}?.toDto()
+
+    fun login(email: String, pass: String): User? {
+        getByEmail(email)?.also {
+            if (it.pass == pass) return it
+        }
+        return null
+    }
 }
