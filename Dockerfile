@@ -6,6 +6,7 @@ RUN ["bash", "-c", "bash <(curl -sL https://get.graalvm.org/jdk) graalvm-ce-java
 ENV JAVA_HOME /home/gradle/graalvm-ce-java$JAVA_VERSION-$GRAAL_VERSION
 
 WORKDIR /code
+#COPY src/ gradle/ build.gradle.kts gradle.properties micronaut-cli.yml openapi.properties settings.gradle.kts ./
 COPY . .
 RUN gradle clean build
 
