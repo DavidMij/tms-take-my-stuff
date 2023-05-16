@@ -15,17 +15,20 @@ const SignIn = (props) => {
             <div className="flex justify-center">
                 <form className="w-[300px] flex flex-col gap-5" onSubmit={async (e) => {
                     e.preventDefault()
+                    //TODO: remove this before final deploy
                     console.log({"email": email, "pass": pass})
-                    const user = await http.post("/v1/user/login", {
-                        email,
-                        pass
-                    })
-                    console.log(user)
-                    if (user.data.id) {
+                    try {
+                        const user = await http.post("/v1/user/login", {
+                            email,
+                            pass
+                        })
+                        console.log(user)
                         props.setUser(user.data)
                         navigate("/")
+
+                    } catch (e) {
+                        alert(`Could Not Connect: ${e}`)
                     }
-                    console.log(user.data)
                 }}>
                     <div className="flex justify-between">
                         <label>Email:</label>

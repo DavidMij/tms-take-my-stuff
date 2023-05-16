@@ -29,6 +29,14 @@ const Header = (props) => {
             {
                 name: `${props.user.firstName} ${props.user.lastName}`,
                 link: "#"
+            },
+            {
+                name: `Sign Out`,
+                link: "#",
+                onClick: (e) => {
+                    e.preventDefault()
+                    props.setUser(null)
+                }
             }
         )
     }
@@ -53,7 +61,12 @@ const Header = (props) => {
                         }
                         to={`${button?.link}`}>
                         <div className="text-center p-4">
-                            <button>{button.name}</button>
+                            {
+                                button['onClick'] ?
+                                    <button onClick={button['onClick']}>{button.name}</button>
+                                    :
+                                    <button>{button.name}</button>
+                            }
                         </div>
                     </NavLink>
                 ))}

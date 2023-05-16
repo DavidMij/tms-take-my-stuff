@@ -5,7 +5,7 @@ import { Outlet } from "react-router-dom";
 const Main = (props) => {
   return (
     <>
-      <Header user={props.user} />
+      <Header setUser={props.setUser} user={props.user} />
       <Outlet />
     </>
   );

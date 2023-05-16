@@ -13,7 +13,7 @@ function App() {
     //TODO: get token if could to remember user state
   return (
         <Routes>
-            <Route path="/" element={<Main user={user} />}>
+            <Route path="/" element={<Main setUser={setUser} user={user} />}>
                 <Route index path="/" element={<Home />}/>
                 <Route path="/signup" element={<SignUp setUser={setUser} />}/>
                 <Route path="/signin" element={<SignIn setUser={setUser} />}/>
