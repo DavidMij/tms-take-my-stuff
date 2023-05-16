@@ -1,0 +1,23 @@
+version: '3.8'
+services:
+  mongo:
+    image: mongo:5
+    ports:
+      - "27017:27017"
+    network_mode: host
+  tms-back:
+    image: davidmijan/tms-back
+    pull_policy: always
+    ports:
+      - "8080:8008"
+    network_mode: host
+    depends_on:
+      - mongo
+  tms-front:
+    image: davidmijan/tms-front
+    pull_policy: always
+    ports:
+      - "80:3000"
+    network_mode: host
+    depends_on:
+      - tms-back

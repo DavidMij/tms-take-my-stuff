@@ -2,7 +2,7 @@ import axios from 'axios';
 import Cookies from 'universal-cookie';
 
 const instanceConfig = {
-    baseURL: 'http://localhost:8080/',
+    baseURL: import.meta.env.VITE_API_URL,
     headers: {
         'Content-type': 'application/json',
         Accept: 'application/json',
