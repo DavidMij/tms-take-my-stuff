@@ -4,10 +4,16 @@ import { Outlet } from "react-router-dom";
 
 const Main = (props) => {
   return (
-    <>
-      <Header setUser={props.setUser} user={props.user} />
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        height: "100%",
+      }}
+    >
+      <Header {...props} />
       <Outlet />
-    </>
+    </div>
   );
 };
 
