@@ -1,8 +1,0 @@
-.image-reflection img {
-  -webkit-box-reflect: below 0px
-    linear-gradient(0deg, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0), transparent 40%);
-}
-
-.address-text {
-  max-width: 14ch;
-}
