@@ -1,100 +1,119 @@
-import React from "react";
+import React, { useRef, useState } from "react";
+import Body from "../layout/Body.jsx";
+import "./List.scss";
 
 const List = () => {
+  const [storageName, setStorageName] = useState("");
+  const [availableSpace, setAvailableSpace] = useState("");
+  const [address, setAddress] = useState("");
+  const [price, setPrice] = useState("");
+  const [category, setCategory] = useState("");
+  const [description, setDescription] = useState("");
+  const [fromDate, setFromDate] = useState("");
+  const [toDate, setToDate] = useState("");
+  const inputFile = useRef(null);
+  const [file, setFile] = useState(null);
+
   return (
-    <section className="container mx-auto">
-      <h3 className="text-center text-[1.5rem] mb-16">
-        Please Tell Us About Your Storage Place:
-      </h3>
-      <form className="grid grid-cols-2 gap-20">
-        <div className="flex items-center">
-          <div className="w-[350px] flex flex-col gap-5">
-            <div className="flex justify-between">
-              <label>Storage Name:</label>
-              <input
-                className="inputFiled"
-                type="text"
-                name="fullName"
-                required
-              />
-            </div>
-            <div className="flex justify-between">
-              <label>Available Space:</label>
-              <input
-                className="inputFiled"
-                type="number"
-                name="idNumber"
-                required
-              />
-            </div>
-            <div className="flex justify-between">
-              <label>Address:</label>
-              <input
-                className="inputFiled"
-                type="email"
-                name="email"
-                required
-              />
-            </div>
-            <div className="flex justify-between">
-              <label>Price:</label>
-              <input className="inputFiled" type="tel" name="phone" required />
-            </div>
-            <div className="flex justify-between">
-              <label>Category:</label>
-              <input
-                className="inputFiled"
-                type="password"
-                name="password"
-                required
-              />
-            </div>
-            <div className="text-white text-end mr-10">
-              <button className="border-2 px-2">Sign Me Up!</button>
-            </div>
+    <Body title="Please Tell Us About Your Storage Place">
+      <form
+        className="list"
+        onSubmit={(e) => {
+          e.preventDefault();
+        }}
+      >
+        <div className="list__section">
+          <div className="list__item">
+            <span>Storage Name:</span>
+            <input
+              type="text"
+              onChange={(e) => setStorageName(e.target.value)}
+              required
+            />
+          </div>
+
+          <div className="list__item">
+            <span>Available Space:</span>
+            <input
+              type="number"
+              onChange={(e) => setAvailableSpace(e.target.value)}
+              required
+            />
+          </div>
+
+          <div className="list__item">
+            <span>Address:</span>
+            <input
+              type="email"
+              onChange={(e) => setAddress(e.target.value)}
+              required
+            />
+          </div>
+
+          <div className="list__item">
+            <span>Price:</span>
+            <input
+              type="number"
+              onChange={(e) => setPrice(e.target.value)}
+              required
+            />
+          </div>
+
+          <div className="list__item">
+            <span>Category:</span>
+            <input
+              type="text"
+              onChange={(e) => setCategory(e.target.value)}
+              required
+            />
           </div>
         </div>
-        <div className="flex flex-col gap-5">
-          <div className="flex gap-10">
-            <label>Description:</label>
-            <textarea className="inputFiled w-1/2" />
+
+        <div className="list__section">
+          <div className="list__item">
+            <span>Description:</span>
+            <textarea onChange={(e) => setDescription(e.target.value)} />
           </div>
-          <div className="flex items-center gap-5">
-            <p>Dates: </p>
-            <div className="flex gap-3 items-center">
-              <label>From:</label>
-              <input
-                className="inputFiled"
-                type="password"
-                name="password"
-                required
-              />
-            </div>
-            <div className="flex gap-3 items-center">
-              <label>To:</label>
-              <input
-                className="inputFiled"
-                type="password"
-                name="password"
-                required
-              />
-            </div>
+
+          <div className="list__item">
+            <span>From Date:</span>
+            <input
+              type="date"
+              onChange={(e) => setFromDate(e.target.value)}
+              required
+            />
           </div>
-          <div className="flex gap-10">
-            <label>Add Photo:</label>
+
+          <div className="list__item">
+            <span>To Date:</span>
+            <input
+              type="date"
+              onChange={(e) => setToDate(e.target.value)}
+              required
+            />
+          </div>
+
+          <div className="list__item">
+            <span>Add Photo:</span>
+            <input
+              type="file"
+              ref={inputFile}
+              onChange={(e) => setFile(e.target.files[0])}
+              style={{ display: "none" }}
+            />
+            <span style={{ color: "white" }}>{file?.name}</span>
             <span
-              style={{ lineHeight: "16px" }}
-              className="cursor-pointer rounded-[5px] bg-[#2e2e2e] border text-[20px] text-white  px-2"
+              className="list__item__plus"
+              onClick={() => inputFile.current.click()}
             >
               +
             </span>
           </div>
-          <div className="text-white text-center">
-            <button className="border-2 px-8">List it!</button>
-          </div>
+
+          <button className="list__submit">List it!</button>
         </div>
       </form>
-    </section>
+    </Body>
   );
 };
 
