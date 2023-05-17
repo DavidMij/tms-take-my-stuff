@@ -27,7 +27,7 @@ const images = [
 ];
 
 function App() {
-  const [user, setUser] = useState({ firstName: "ada", lastName: "Adad" });
+  const [user, setUser] = useState(null);
   const [searchResult, setSearchResult] = useState([
     {
       image:

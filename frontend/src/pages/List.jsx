@@ -1,6 +1,8 @@
 import React, { useRef, useState } from "react";
 import Body from "../layout/Body.jsx";
 import "./List.scss";
+import http from "../axios/index.js";
+import {useNavigate} from "react-router-dom";
 
 const List = () => {
   const [storageName, setStorageName] = useState("");
@@ -13,13 +15,35 @@ const List = () => {
   const [toDate, setToDate] = useState("");
   const inputFile = useRef(null);
   const [file, setFile] = useState(null);
+  const navigate = useNavigate();
 
   return (
     <Body title="Please Tell Us About Your Storage Place">
       <form
         className="list"
-        onSubmit={(e) => {
+        onSubmit={async (e) => {
           e.preventDefault();
+
+          try {
+            const place = await http.post("/v1/storeplace", {
+              "name": storageName,
+              "description": description,
+              "category": category,
+              "address": address,
+              "availableSpace": availableSpace,
+              "price": price,
+              "startDate": fromDate,
+              "endDate": toDate
+            })
+            console.log(place)
+            alert("Thank you for submitting Store place")
+            navigate("/")
+
+          } catch (e) {
+            alert(`Could Not Connect: ${e}`)
+          }
+
+
         }}
       >
         <div className="list__section">
