@@ -21,6 +21,7 @@ data class StorePlace(
         var price: String,
         var startDate: Date,
         var endDate: Date,
+        var image: ByteArray?
 )
 
 fun StorePlaceEntity.toDto() = StorePlace(
@@ -32,7 +33,8 @@ fun StorePlaceEntity.toDto() = StorePlace(
         availableSpace = this.availableSpace,
         price = this.price,
         startDate = this.startDate,
-        endDate = this.endDate
+        endDate = this.endDate,
+        image = this.image
 )
 
 fun StorePlace.toEntity() = StorePlaceEntity(
@@ -44,13 +46,14 @@ fun StorePlace.toEntity() = StorePlaceEntity(
         availableSpace = this.availableSpace,
         price = this.price,
         startDate = this.startDate,
-        endDate = this.endDate
+        endDate = this.endDate,
+        image = this.image
 )
 
 @Singleton
 class StorePlaceService(private val storePlaceRepository: StorePlaceRepository) {
 
-    fun create(name: String, description: String, category: String, address: String, availableSpace: String, price: String, startDate: Date, endDate: Date): StorePlace =
+    fun create(name: String, description: String, category: String, address: String, availableSpace: String, price: String, startDate: Date, endDate: Date, image: ByteArray): StorePlace =
             storePlaceRepository.save(
                     StorePlaceEntity(
                             name = name,
@@ -60,7 +63,9 @@ class StorePlaceService(private val storePlaceRepository: StorePlaceRepository) 
                             availableSpace = availableSpace,
                             price = price,
                             startDate = startDate,
-                            endDate = endDate
+                            endDate = endDate,
+                            image = image
+
                     )
             ).toDto()
 

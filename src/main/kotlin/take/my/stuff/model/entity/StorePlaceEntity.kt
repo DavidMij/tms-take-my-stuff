@@ -18,4 +18,5 @@ data class StorePlaceEntity(
     var price: String,
     var startDate: Date,
     var endDate: Date,
+    var image: ByteArray?
 )
