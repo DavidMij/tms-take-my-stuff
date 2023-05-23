@@ -17,8 +17,7 @@ interface StorePlaceRepository : CrudRepository<StorePlaceEntity, ObjectId> {
     fun findByEndDate(endDate: Date): List<StorePlaceEntity>?
     fun findByAvailableSpace(availableSpace: String): List<StorePlaceEntity>?
     fun findByPrice(price: String): List<StorePlaceEntity>?
-    fun findByAddress(address: String): List<StorePlaceEntity>?
-    fun searchByAddress(address: String): List<StorePlaceEntity>?
+    fun findByUserId(userId: String): List<StorePlaceEntity>?
     @MongoFindQuery(filter = "{address:{\$regex: :address}}")
     fun getAddress(address: String): List<StorePlaceEntity>?
 }

@@ -7,24 +7,9 @@ import List from "./pages/List.jsx";
 import { useState } from "react";
 import Main from "./layout/Main.jsx";
 import AfterSearch from "./pages/AfterSearch.jsx";
-
-const images = [
-  {
-    image:
-      "https://media.istockphoto.com/id/1344089225/photo/modern-warehouse-with-automated-goods-movement-system.jpg?b=1&s=170667a&w=0&k=20&c=gSNmRE4EgOUWLttyOMI3byG2fLANAiVbwtVq0chZhvQ=",
-    address: "Room, 20 sqm Givataym",
-  },
-  {
-    image:
-      "https://media.istockphoto.com/id/1405246054/photo/empty-warehouse-in-logistic-center.jpg?b=1&s=170667a&w=0&k=20&c=sNDJa2o9NLuVqkEVHFy21Xxj-BJMCLbkWcM69vAE5SQ=",
-    address: "Garage, 45 sqm Rishon Lezion",
-  },
-  {
-    image:
-      "https://media.istockphoto.com/id/1299083810/photo/parcels-on-conveyor-belt-in-a-warehouse.jpg?b=1&s=170667a&w=0&k=20&c=gcKD93K_UvTRyb1zZ0OFAWOWjF9pvCpuxwjmk0k1kAQ=",
-    address: "Shed, 30 sqm Petach Tikva",
-  },
-];
+import http from "./axios/index.js";
+import axios from "axios";
+const stores = await http.get("v1/storeplace")
 
 function App() {
   const [user, setUser] = useState(null);
@@ -97,7 +82,7 @@ function App() {
   return (
     <Routes>
       <Route path="/" element={<Main user={user} setUser={setUser} />}>
-        <Route index path="/" element={<Home images={images} />} />
+        <Route index path="/" element={<Home stores={stores.data} />} />
         <Route
           path="/search"
           element={<Search setResult={setSearchResult} />}
@@ -114,7 +99,7 @@ function App() {
             <Route path="/signin" element={<SignIn setUser={setUser} />} />
           </>
         ) : (
-          <Route path="/list" element={<List />} />
+          <Route path="/list" element={<List user={user} />} />
         )}
       </Route>
     </Routes>

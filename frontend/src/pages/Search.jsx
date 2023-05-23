@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Body from "../layout/Body.jsx";
 import "./Search.scss";
 import { useNavigate } from "react-router-dom";
+import http from "../axios/index.js";
 
 const Search = (props) => {
   const [location, setLocation] = useState("");
@@ -11,6 +12,7 @@ const Search = (props) => {
   const [price, setPrice] = useState("");
   const [space, setSpace] = useState("");
   const navigate = useNavigate();
+
   const images = [
     {
       image:
@@ -45,9 +47,10 @@ const Search = (props) => {
     <Body title="How Can we Focus Your Search?">
       <form
         className="search"
-        onSubmit={(e) => {
+        onSubmit={async (e) => {
           e.preventDefault();
-          props.setResult(images);
+          const stores = await http.get(`/v1/storeplace`)
+          props.setResult(stores.data);
           navigate("/search-result");
         }}
       >

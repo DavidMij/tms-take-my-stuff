@@ -14,9 +14,13 @@
       height: 250px;
     }
 
-    &__caption {
-      max-width: 15vmin;
-      margin: 5vmin;
+    & div {
+      display: flex;
+      flex-direction: column;
+      margin: 2vmin;
+      font-size: 1.75vmin;
+      color: white;
+      line-height: 2.5vmin;
     }
   }
 }

@@ -9,12 +9,13 @@ const AfterSearch = (props) => {
         {props.result.map((p) => (
           <div className="after_search__item" key={p.address}>
             <img src={p?.image} alt="" />
+              console.log(p)
             <div>
               <span>Address: {p.address}</span>
-              <span>From: {p.fromDate}</span>
-              <span>To: {p.toDate}</span>
+              <span>From: {p.startDate}</span>
+              <span>To: {p.endDate}</span>
               <span>Price: {p.price}</span>
-              <span>Space: {p.space}</span>
+              <span>Space: {p.availableSpace}</span>
             </div>
           </div>
         ))}

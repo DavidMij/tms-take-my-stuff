@@ -3,6 +3,7 @@ package take.my.stuff.model.entity
 import io.micronaut.data.annotation.GeneratedValue
 import io.micronaut.data.annotation.Id
 import io.micronaut.data.annotation.MappedEntity
+import io.micronaut.data.annotation.Relation
 import org.bson.types.ObjectId
 import java.util.Date
 
@@ -18,5 +19,9 @@ data class StorePlaceEntity(
     var price: String,
     var startDate: Date,
     var endDate: Date,
-    var image: ByteArray?
+    var image: ByteArray?,
+    var userId: String
+//    @Relation(Relation.Kind.MANY_TO_ONE)
+
+        //    var user: UserEntity
 )

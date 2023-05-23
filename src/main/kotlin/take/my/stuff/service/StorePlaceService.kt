@@ -21,20 +21,23 @@ data class StorePlace(
         var price: String,
         var startDate: Date,
         var endDate: Date,
-        var image: ByteArray?
+        var userId: String
 )
 
 fun StorePlaceEntity.toDto() = StorePlace(
-        id = this.id!!.toHexString(),
-        name = this.name,
-        description = this.description,
-        category = this.category,
-        address = this.address,
-        availableSpace = this.availableSpace,
-        price = this.price,
-        startDate = this.startDate,
-        endDate = this.endDate,
-        image = this.image
+        StorePlaceDto(
+                id = this.id!!.toHexString(),
+                name = this.name,
+                description = this.description,
+                category = this.category,
+                address = this.address,
+                availableSpace = this.availableSpace,
+                price = this.price,
+                startDate = this.startDate,
+                endDate = this.endDate,
+                userId = this.userId,
+        ),
+        this.image
 )
 
 fun StorePlace.toEntity() = StorePlaceEntity(
@@ -53,7 +56,7 @@ fun StorePlace.toEntity() = StorePlaceEntity(
 @Singleton
 class StorePlaceService(private val storePlaceRepository: StorePlaceRepository) {
 
-    fun create(name: String, description: String, category: String, address: String, availableSpace: String, price: String, startDate: Date, endDate: Date, image: ByteArray): StorePlace =
+    fun create(name: String, description: String, category: String, address: String, availableSpace: String, price: String, startDate: Date, endDate: Date, image: ByteArray, userId: String): StorePlace =
             storePlaceRepository.save(
                     StorePlaceEntity(
                             name = name,
@@ -64,8 +67,8 @@ class StorePlaceService(private val storePlaceRepository: StorePlaceRepository) 
                             price = price,
                             startDate = startDate,
                             endDate = endDate,
-                            image = image
-
+                            image = image,
+                            userId = userId
                     )
             ).toDto()
 
@@ -73,8 +76,11 @@ class StorePlaceService(private val storePlaceRepository: StorePlaceRepository) 
 
     fun get(id: String): StorePlace? = storePlaceRepository.findById(ObjectId(id)).getOrElse { null }?.toDto()
 
-    fun list(category: String?, price: String?, startDate: Date?, endDate: Date?, availableSpace: String?, address: String?): List<StorePlace>? {
+    fun list(category: String?, price: String?, startDate: Date?, endDate: Date?, availableSpace: String?, address: String?, userId: String?): List<StorePlace>? {
 //        TODO: make this function be able join between
+        if (userId != null) {
+            return getByUserId(userId = userId)
+        }
         if (category != null) {
             return getByCategory(category = category)
         }
@@ -104,5 +110,6 @@ class StorePlaceService(private val storePlaceRepository: StorePlaceRepository) 
     private fun getByPrice(price: String): List<StorePlace>? = storePlaceRepository.findByPrice(price)?.map { it.toDto() }
     private fun getByAvailableSpace(availableSpace: String): List<StorePlace>? = storePlaceRepository.findByAvailableSpace(availableSpace)?.map { it.toDto() }
     private fun getAddressBySearch(address: String): List<StorePlace>? = storePlaceRepository.getAddress(address)?.map { it.toDto() }
+    private fun getByUserId(userId: String): List<StorePlace>? = storePlaceRepository.findByUserId(userId)?.map { it.toDto() }
 
 }

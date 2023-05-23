@@ -26,6 +26,7 @@ class StorePlaceRoute(
             var price: String,
             var startDate: Date,
             var endDate: Date,
+            var userId: String
     )
 
     @Status(HttpStatus.CREATED)
@@ -41,7 +42,8 @@ class StorePlaceRoute(
                     description = storeplace.description,
                     startDate = storeplace.startDate,
                     endDate = storeplace.endDate,
-                    image = image.bytes
+                    image = image.bytes,
+                    userId = storeplace.userId
             )
         } catch (e: Exception) {
             throw HttpServerException("Failed to create Vendor. Error: " + e.message)
