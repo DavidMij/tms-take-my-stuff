@@ -11,7 +11,7 @@ import java.util.*
 import kotlin.jvm.optionals.getOrElse
 
 
-data class StorePlace(
+data class StorePlaceDto(
         var id: String,
         var name: String,
         var description: String,
@@ -22,6 +22,11 @@ data class StorePlace(
         var startDate: Date,
         var endDate: Date,
         var userId: String
+)
+
+data class StorePlace(
+        var dto: StorePlaceDto,
+        var image: ByteArray?
 )
 
 fun StorePlaceEntity.toDto() = StorePlace(
@@ -41,16 +46,17 @@ fun StorePlaceEntity.toDto() = StorePlace(
 )
 
 fun StorePlace.toEntity() = StorePlaceEntity(
-        id = ObjectId(this.id),
-        name = this.name,
-        description = this.description,
-        category = this.category,
-        address = this.address,
-        availableSpace = this.availableSpace,
-        price = this.price,
-        startDate = this.startDate,
-        endDate = this.endDate,
-        image = this.image
+        id = ObjectId(this.dto.id),
+        name = this.dto.name,
+        description = this.dto.description,
+        category = this.dto.category,
+        address = this.dto.address,
+        availableSpace = this.dto.availableSpace,
+        price = this.dto.price,
+        startDate = this.dto.startDate,
+        endDate = this.dto.endDate,
+        image = image,
+        userId = this.dto.userId
 )
 
 @Singleton

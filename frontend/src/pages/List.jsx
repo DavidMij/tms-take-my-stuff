@@ -135,19 +135,19 @@ const List = (props) => {
                         />
                     </div>
 
-          <div className="list__item">
-            <span>Add Photo:</span>
-            <input
-              type="file"
-              ref={inputFile}
-              onChange={(e) => setFile(e.target.files[0])}
-              style={{ display: "none" }}
-            />
-            <span style={{ color: "white" }}>{file?.name}</span>
-            <span
-              className="list__item__plus"
-              onClick={() => inputFile.current.click()}
-            >
+                    <div className="list__item">
+                        <span>Add Photo:</span>
+                        <input
+                            type="file"
+                            ref={inputFile}
+                            onChange={(e) => setFile(e.target.files[0])}
+                            style={{display: "none"}}
+                        />
+                        <span style={{color: "white"}}>{file?.name}</span>
+                        <span
+                            className="list__item__plus"
+                            onClick={() => inputFile.current.click()}
+                        >
               +
             </span>
                     </div>

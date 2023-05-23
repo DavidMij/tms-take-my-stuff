@@ -9,7 +9,9 @@ import io.micronaut.http.exceptions.HttpStatusException
 import io.micronaut.http.multipart.CompletedFileUpload
 import io.micronaut.http.server.exceptions.HttpServerException
 import take.my.stuff.service.StorePlace
+import take.my.stuff.service.StorePlaceDto
 import take.my.stuff.service.StorePlaceService
+import java.time.ZoneId
 import java.util.Date
 import java.util.Optional
 
@@ -51,7 +53,9 @@ class StorePlaceRoute(
     }
 
     @Get
-    fun list(@QueryValue category: String?, @QueryValue price: String?, @QueryValue startDate: Date?, @QueryValue endDate: Date?, @QueryValue availableSpace: String?, @QueryValue address: String?): List<StorePlace> = storePlaceService.list(category, price, startDate, endDate, availableSpace, address)
+    fun list(@QueryValue category: String?, @QueryValue price: String?, @QueryValue startDate: Date?, @QueryValue endDate: Date?, @QueryValue availableSpace: String?, @QueryValue address: String?,@QueryValue userId: String?): List<StorePlaceDto> = storePlaceService
+            .list(category, price, startDate, endDate, availableSpace, address, userId)
+            ?.map { it.dto }
             ?: let { throw HttpStatusException(HttpStatus.NOT_FOUND, "Could not find store places") }
 
     @Get("/{id}/data", produces = [MediaType.IMAGE_PNG])
@@ -59,7 +63,7 @@ class StorePlaceRoute(
             ?: let { throw HttpStatusException(HttpStatus.NOT_FOUND, "Could not find storeplace with id $id") }
 
     @Get("/{id}")
-    fun get(id: String): StorePlace = storePlaceService.get(id)
+    fun get(id: String): StorePlaceDto = storePlaceService.get(id)?.dto
             ?: let { throw HttpStatusException(HttpStatus.NOT_FOUND, "Could not find storeplace with id $id") }
 
     @Delete("/{id}")

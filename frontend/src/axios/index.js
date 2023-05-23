@@ -18,7 +18,7 @@ http.interceptors.request.use(
         // const token = cookies.get('token');
 
         // config.headers['Authorization'] = `Bearer ${token}` || '';
-        config.headers.Accept = 'application/json';
+        // config.headers.Accept = 'application/json';
 
         return config;
     },
