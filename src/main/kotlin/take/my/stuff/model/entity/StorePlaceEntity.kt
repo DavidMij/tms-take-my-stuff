@@ -20,8 +20,7 @@ data class StorePlaceEntity(
     var startDate: Date,
     var endDate: Date,
     var image: ByteArray?,
-    var userId: String
-//    @Relation(Relation.Kind.MANY_TO_ONE)
-
-        //    var user: UserEntity
+//    var userId: String
+    @Relation(Relation.Kind.MANY_TO_ONE)
+    var user: UserEntity
 )

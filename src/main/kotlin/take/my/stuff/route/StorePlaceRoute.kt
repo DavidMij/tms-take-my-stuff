@@ -8,16 +8,21 @@ import io.micronaut.http.annotation.*
 import io.micronaut.http.exceptions.HttpStatusException
 import io.micronaut.http.multipart.CompletedFileUpload
 import io.micronaut.http.server.exceptions.HttpServerException
+import org.bson.types.ObjectId
+import take.my.stuff.model.entity.User
+import take.my.stuff.model.entity.UserEntity
 import take.my.stuff.service.StorePlace
 import take.my.stuff.service.StorePlaceDto
 import take.my.stuff.service.StorePlaceService
+import take.my.stuff.service.UserService
 import java.time.ZoneId
 import java.util.Date
 import java.util.Optional
 
 @Controller("/v1/storeplace")
 class StorePlaceRoute(
-        private val storePlaceService: StorePlaceService) {
+        private val storePlaceService: StorePlaceService,
+        private val userService: UserService) {
 
     data class CreateStorePlace(
             var name: String,
@@ -35,6 +40,7 @@ class StorePlaceRoute(
     @Post(consumes = [MediaType.MULTIPART_FORM_DATA])//, produces = [MediaType.IMAGE_JPEG])
     fun create(@Body storeplace: CreateStorePlace,image: CompletedFileUpload ): StorePlace {
         return try {
+            val user: User = userService.get(storeplace.userId)!!
             storePlaceService.create(
                     name = storeplace.name,
                     category = storeplace.category,
@@ -45,7 +51,8 @@ class StorePlaceRoute(
                     startDate = storeplace.startDate,
                     endDate = storeplace.endDate,
                     image = image.bytes,
-                    userId = storeplace.userId
+//                    userId = storeplace.userId
+                    user = user
             )
         } catch (e: Exception) {
             throw HttpServerException("Failed to create Vendor. Error: " + e.message)

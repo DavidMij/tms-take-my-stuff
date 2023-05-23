@@ -19,7 +19,7 @@ const Home = (props) => {
                                     <span>from: {i.startDate}</span>
                                     <span>To: {i.endDate}</span>
                                     <span>Description: {i.description}</span>
-                                    <span>Seller: {}</span>
+                                    <span>Seller: {i.user.name}</span>
                                 </div>
                             </div>
                         )

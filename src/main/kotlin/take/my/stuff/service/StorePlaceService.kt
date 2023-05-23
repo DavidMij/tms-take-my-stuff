@@ -1,5 +1,6 @@
 package take.my.stuff.service
 
+import io.micronaut.data.annotation.Join
 import jakarta.inject.Singleton
 import org.bson.types.ObjectId
 import take.my.stuff.model.entity.*
@@ -21,7 +22,8 @@ data class StorePlaceDto(
         var price: String,
         var startDate: Date,
         var endDate: Date,
-        var userId: String
+//        var userId: String,
+        var user: User
 )
 
 data class StorePlace(
@@ -40,7 +42,8 @@ fun StorePlaceEntity.toDto() = StorePlace(
                 price = this.price,
                 startDate = this.startDate,
                 endDate = this.endDate,
-                userId = this.userId,
+//                userId = this.userId,
+                user = this.user.toDto()
         ),
         this.image
 )
@@ -56,13 +59,14 @@ fun StorePlace.toEntity() = StorePlaceEntity(
         startDate = this.dto.startDate,
         endDate = this.dto.endDate,
         image = image,
-        userId = this.dto.userId
+//        userId = this.dto.userId
+        user = this.dto.user.toEntity()
 )
 
 @Singleton
 class StorePlaceService(private val storePlaceRepository: StorePlaceRepository) {
 
-    fun create(name: String, description: String, category: String, address: String, availableSpace: String, price: String, startDate: Date, endDate: Date, image: ByteArray, userId: String): StorePlace =
+    fun create(name: String, description: String, category: String, address: String, availableSpace: String, price: String, startDate: Date, endDate: Date, image: ByteArray, user: User): StorePlace =
             storePlaceRepository.save(
                     StorePlaceEntity(
                             name = name,
@@ -74,7 +78,8 @@ class StorePlaceService(private val storePlaceRepository: StorePlaceRepository) 
                             startDate = startDate,
                             endDate = endDate,
                             image = image,
-                            userId = userId
+//                            userId = userId
+                            user = user.toEntity()
                     )
             ).toDto()
 
@@ -85,7 +90,7 @@ class StorePlaceService(private val storePlaceRepository: StorePlaceRepository) 
     fun list(category: String?, price: String?, startDate: Date?, endDate: Date?, availableSpace: String?, address: String?, userId: String?): List<StorePlace>? {
 //        TODO: make this function be able join between
         if (userId != null) {
-            return getByUserId(userId = userId)
+            return getByUserId(id = ObjectId(userId))
         }
         if (category != null) {
             return getByCategory(category = category)
@@ -107,7 +112,7 @@ class StorePlaceService(private val storePlaceRepository: StorePlaceRepository) 
             return getAddressBySearch(address = address)
         }
 
-        return storePlaceRepository.findAll().map { it.toDto() }
+        return getAll()
     }
 
     private fun getByCategory(category: String): List<StorePlace>? = storePlaceRepository.findByCategory(category)?.map { it.toDto() }
@@ -116,6 +121,7 @@ class StorePlaceService(private val storePlaceRepository: StorePlaceRepository) 
     private fun getByPrice(price: String): List<StorePlace>? = storePlaceRepository.findByPrice(price)?.map { it.toDto() }
     private fun getByAvailableSpace(availableSpace: String): List<StorePlace>? = storePlaceRepository.findByAvailableSpace(availableSpace)?.map { it.toDto() }
     private fun getAddressBySearch(address: String): List<StorePlace>? = storePlaceRepository.getAddress(address)?.map { it.toDto() }
-    private fun getByUserId(userId: String): List<StorePlace>? = storePlaceRepository.findByUserId(userId)?.map { it.toDto() }
+    private fun getByUserId(id: ObjectId): List<StorePlace>? = storePlaceRepository.findByUserId(id)?.map { it.toDto() }
+    private fun getAll(): List<StorePlace>? = storePlaceRepository.findAll().map { it.toDto() }
 
 }
