@@ -1,20 +1,88 @@
-FROM gradle:jdk11 as build
+#FROM node:18-alpine AS base
+#
+## Install dependencies only when needed
+#FROM base AS deps
+## Check https://github.com/nodejs/docker-node/tree/b4117f9333da4138b03a546ec926ef50a31506c3#nodealpine to understand why libc6-compat might be needed.
+#RUN apk add --no-cache libc6-compat
+#WORKDIR /app
+#
+## Install dependencies based on the preferred package manager
+#COPY package.json yarn.lock* package-lock.json* pnpm-lock.yaml* ./
+#RUN \
+#  if [ -f yarn.lock ]; then yarn --frozen-lockfile; \
+#  elif [ -f package-lock.json ]; then npm ci; \
+#  elif [ -f pnpm-lock.yaml ]; then yarn global add pnpm && pnpm i --frozen-lockfile; \
+#  else echo "Lockfile not found." && exit 1; \
+#  fi
+#
+#
+## Rebuild the source code only when needed
+#FROM base AS builder
+#WORKDIR /app
+#COPY --from=deps /app/node_modules ./node_modules
+#COPY . .
+#
+## Next.js collects completely anonymous telemetry data about general usage.
+## Learn more here: https://nextjs.org/telemetry
+## Uncomment the following line in case you want to disable telemetry during the build.
+## ENV NEXT_TELEMETRY_DISABLED 1
+#
+##RUN yarn build
+#
+## If using npm comment out above and use below instead
+#RUN npm run build
+#
+## Production image, copy all the files and run next
+#FROM base AS runner
+#WORKDIR /app
+#
+#ENV NODE_ENV production
+## Uncomment the following line in case you want to disable telemetry during runtime.
+## ENV NEXT_TELEMETRY_DISABLED 1
+#
+#RUN addgroup --system --gid 1001 nodejs
+#RUN adduser --system --uid 1001 nextjs
+#
+#COPY --from=builder /app/public ./public
+#
+## Automatically leverage output traces to reduce image size
+## https://nextjs.org/docs/advanced-features/output-file-tracing
+#COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
+#COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
+#COPY --from=builder --chown=nextjs:nodejs /app/.next/server ./.next/server
+#
+#USER nextjs
+#
+#EXPOSE 3000
+#
+#ENV PORT 3000
+#
+#CMD ["node", "server.js"]
 
-ENV GRAAL_VERSION 22.3.1
-ENV JAVA_VERSION 11
-RUN ["bash", "-c", "bash <(curl -sL https://get.graalvm.org/jdk) graalvm-ce-java$JAVA_VERSION-$GRAAL_VERSION"]
-ENV JAVA_HOME /home/gradle/graalvm-ce-java$JAVA_VERSION-$GRAAL_VERSION
 
-WORKDIR /code
-#COPY src/ gradle/ build.gradle.kts gradle.properties micronaut-cli.yml openapi.properties settings.gradle.kts ./
+
+
+
+
+
+# Use an official Node.js runtime as the base image
+FROM node:18-alpine
+
+# Set the working directory inside the container
+WORKDIR /usr/src/app
+
+# Install dependencies
+COPY package*.json ./
+RUN npm install
+
+# Copy the rest of the application code
 COPY . .
-RUN gradle clean build
 
-FROM openjdk:17-alpine  as Run
-WORKDIR /home/app
-COPY --from=build /code/build/docker/main/layers/libs /home/app/libs
-COPY --from=build /code/build/docker/main/layers/classes /home/app/classes
-COPY --from=build /code/build/docker/main/layers/resources /home/app/resources
-COPY --from=build /code/build/docker/main/layers/application.jar /home/app/application.jar
-EXPOSE 8080
-ENTRYPOINT ["java", "-jar", "/home/app/application.jar"]
+# Build the Next.js application
+RUN npm run build
+
+# Expose the port your Next.js application listens on
+EXPOSE 3000
+
+# Start the Next.js application
+CMD ["npm", "run", "start"]
