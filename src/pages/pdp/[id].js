@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import axios from "../../axios";
+import http from "../../axios";
 import { Button, Grid, Typography } from "@mui/material";
 import { useRouter } from "next/router";
 
@@ -11,14 +11,14 @@ export const PDP = () => {
 
   useEffect(() => {
     if (id) {
-      axios.get(`/api/get-property?id=${id}`).then((res) => {
+      http.get(`/api/get-property?id=${id}`).then((res) => {
         setProperty([res.data.property]);
       });
     }
   }, [id]);
 
   const handleRentNowCTA = (property) => {
-    axios
+    http
       .post("/api/rent-property", {
         _id: property._id,
         propertyOwner: property.userId,

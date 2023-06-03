@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 import { Box, Button, Grid, TextField, Typography } from "@mui/material";
-import axios from "../../axios";
+import http from "../../axios";
 import { AuthContext } from "../_app";
 import { useRouter } from "next/router";
 
@@ -16,7 +16,7 @@ export const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    axios
+    http
       .post("/api/login", values)
       .then((res) => {
         setError("");

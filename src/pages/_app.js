@@ -1,6 +1,6 @@
 import { Navbar } from "../components";
 import { createContext, useEffect, useState } from "react";
-import axios from "../axios";
+import http from "../axios";
 
 export const AuthContext = createContext({
   isAuthenticated: false,
@@ -11,7 +11,7 @@ export default function App({ Component, pageProps }) {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   useEffect(() => {
-    axios.get("/api/me").then((res) => {
+    http.get("/api/me").then((res) => {
       setIsAuthenticated(res.data.success);
     });
   }, []);

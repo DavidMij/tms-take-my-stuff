@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const httpConfig = {
-  baseURL: "http://localhost:3000",
+  baseURL: process.env.BASE_URL,
   // headers: {
   //   "Content-Type": "application/json",
   //   Accept: "application/json",

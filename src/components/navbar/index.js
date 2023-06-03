@@ -9,7 +9,7 @@ import {
 } from "@mui/material";
 import { useRouter } from "next/router";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-import axios from "../../axios";
+import http from "../../axios";
 import { AuthContext } from "../../pages/_app";
 import Image from "next/image";
 
@@ -30,7 +30,7 @@ export const Navbar = () => {
 
   const handleLogout = async () => {
     try {
-      const res = await axios.post("/api/logout");
+      const res = await http.post("/api/logout");
       if (res.status === 200) {
         handleClose();
         setIsAuthenticated(false);

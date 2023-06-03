@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Button, Grid, TextField } from "@mui/material";
-import axios from "../../axios";
+import http from "../../axios";
 
 export const FilterProperties = ({ onResponseRecieved }) => {
   const [filters, setFilters] = useState({
@@ -23,7 +23,7 @@ export const FilterProperties = ({ onResponseRecieved }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    axios.post("/api/get-properties", filters).then((res) => {
+    http.post("/api/get-properties", filters).then((res) => {
       onResponseRecieved(res.data);
     });
   };

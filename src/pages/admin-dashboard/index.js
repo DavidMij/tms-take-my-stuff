@@ -11,7 +11,7 @@ import {
     Divider,
     styled,
 } from "@mui/material";
-import axios from "../../axios";
+import http from "../../axios";
 import AddIcon from "@mui/icons-material/Add";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import { useRouter } from "next/router";
@@ -67,8 +67,8 @@ const AdminDashboard = () => {
 
     useEffect(() => {
         Promise.all([
-            axios.get("/api/get-customer-properties"),
-            axios.get("/api/get-customer-rentals"),
+            http.get("/api/get-customer-properties"),
+            http.get("/api/get-customer-rentals"),
         ]).then((res) => {
             res.forEach(({data}) => {
                 if (data.properties) {
@@ -109,7 +109,7 @@ const AdminDashboard = () => {
         e.preventDefault();
 
 
-        axios.post("/api/add-new-property", newPropertyValues).then((res) => {
+        http.post("/api/add-new-property", newPropertyValues).then((res) => {
             if (res.status === 200) {
                 setNewPropertyValues(
                     {...newPropertyValues}
