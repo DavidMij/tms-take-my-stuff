@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 import {Box, Button, Grid, TextField, Typography} from "@mui/material";
-import axios from "../../axios";
+import http from "../../axios";
 import { useRouter } from "next/router";
 import { AuthContext } from "../_app";
 
@@ -19,7 +19,7 @@ export const Register = () => {
     e.preventDefault();
 
     try {
-      const res = await axios.post("/api/register", state);
+      const res = await http.post("/api/register", state);
       if (res.data.success) {
         setIsAuthenticated(true);
         await router.push("/");

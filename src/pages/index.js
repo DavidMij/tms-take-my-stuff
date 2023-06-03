@@ -7,7 +7,7 @@ import {
   Card,
 } from "@mui/material";
 // import Image from "next/image";
-import axios from "../axios";
+import http from "../axios";
 import { FilterProperties } from "../components";
 import { useRouter } from "next/router";
 import { useMemo, useState } from "react";
@@ -84,6 +84,6 @@ export default function Home({ properties }) {
 }
 
 export const getServerSideProps = async () => {
-  const res = await axios.get("/api/get-all-properties");
+  const res = await http.get("/api/get-all-properties");
   return { props: { properties: res.data.properties } };
 };
