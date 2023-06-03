@@ -1,7 +1,16 @@
 import React, { useEffect, useState } from "react";
 import http from "../../axios";
-import { Button, Grid, Typography } from "@mui/material";
+import {Button, Grid, Typography, Dialog, Checkbox, FormControlLabel, styled} from "@mui/material";
 import { useRouter } from "next/router";
+
+const StyledDialog = styled(Dialog)`
+  & .MuiPaper-root {
+    width: 100%;
+    height: 350px;
+    max-width: 900px;
+    padding: 25px;
+  }
+`;
 
 export const PDP = () => {
   const router = useRouter();
@@ -9,6 +18,7 @@ export const PDP = () => {
 
   const [property, setProperty] = useState([]);
   const [isDialogOpen, setIsDialogOpen] = React.useState(false);
+  const [isInsuranceIncluded, setIsInsuranceIncluded] = React.useState(false);
 
   useEffect(() => {
     if (id) {
@@ -17,6 +27,10 @@ export const PDP = () => {
       });
     }
   }, [id]);
+
+  const checkApproval = () => {
+    setIsDialogOpen(true);
+  }
 
   const handleRentNowCTA = (property) => {
     http
@@ -29,6 +43,7 @@ export const PDP = () => {
         if (res.status === 200) {
           property.isRented = true
           setProperty([property]);
+          setIsDialogOpen(false);
         }
       });
   };
@@ -63,7 +78,8 @@ export const PDP = () => {
                   variant="contained"
                   size="large"
                   onClick={() => {
-                    handleRentNowCTA(property[0])
+                    checkApproval();
+
                   }
                   }
                   sx={{ mt: 5 }}
@@ -72,6 +88,25 @@ export const PDP = () => {
                 </Button>
               </Grid>
 
+              <StyledDialog open={isDialogOpen} onClose={() => setIsDialogOpen(false)}>
+                <Typography variant="h2" align="center" sx={{pt: 5, fontWeight: 'bold', maxWidth: '550px', m: '0 auto'}}>Are you sure you want to rent it?</Typography>
+
+                <Grid container justifyContent="center" sx={{mt: 3, mb: 3}}>
+                  <FormControlLabel
+                      control={<Checkbox checked={isInsuranceIncluded}
+                                         onChange={(e) => setIsInsuranceIncluded(e.target.checked)} />} label="Include property insurance" />
+                </Grid>
+
+
+                <Grid container justifyContent="center">
+                  <Button
+                      sx={{width: '250px', mr: 4, height: '50px', fontSize: '18px'}}
+                      variant="contained"
+                      onClick={() => handleRentNowCTA(property[0])}>Yes</Button>
+                  <Button variant="outlined" sx={{width: '250px', height: '50px', fontSize: '18px'}}
+                          onClick={() => setIsDialogOpen(false)}>No, Maybe next time</Button>
+                </Grid>
+              </StyledDialog>
             </Grid>
           );
         }
