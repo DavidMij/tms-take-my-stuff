@@ -8,6 +8,7 @@ export const PDP = () => {
   const id = router?.query?.id;
 
   const [property, setProperty] = useState([]);
+  const [isDialogOpen, setIsDialogOpen] = React.useState(false);
 
   useEffect(() => {
     if (id) {
@@ -31,6 +32,7 @@ export const PDP = () => {
         }
       });
   };
+
 
   return (
     <Grid container sx={{ mt: 5, p: "0 55px" }}>
@@ -69,6 +71,7 @@ export const PDP = () => {
                   {isRented ? "Rented" : "Rent it now!"}
                 </Button>
               </Grid>
+
             </Grid>
           );
         }

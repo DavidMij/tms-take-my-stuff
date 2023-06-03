@@ -40,10 +40,10 @@ export default async function loginUser(req, res) {
         .setExpirationTime("365d")
         .sign(new TextEncoder().encode(process.env.TOKEN_SECRET));
       const oneYear = 60 * 60 * 24 * 365;
-
+      console.log(token)
       res.setHeader(
         "Set-Cookie",
-        `tmsToken=${token}; HttpOnly; Secure; SameSite=Strict; Path=/; Max-Age=${oneYear}`
+        `tmsToken=${token}; HttpOnly; SameSite=Strict; Path=/; Max-Age=${oneYear}`
       );
 
       return res.status(200).json({ success: true });
