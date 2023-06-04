@@ -6,12 +6,12 @@ export default async function handler(req, res) {
       const { cookies } = req;
 
       if (cookies.tmsToken) {
-        const isVerified = await jose.jwtVerify(
+        const {isVerified, payload} = await jose.jwtVerify(
           cookies.tmsToken,
           new TextEncoder().encode(process.env.TOKEN_SECRET)
         );
 
-        return res.status(200).json({ success: !!isVerified });
+        return res.status(200).json({ success: !!isVerified, userId: payload.userId });
       }
 
       return res.status(400).json({ success: false, message: `no authenticated user` });

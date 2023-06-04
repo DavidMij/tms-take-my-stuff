@@ -65,18 +65,23 @@ const AdminDashboard = () => {
     });
     const [customerProperties, setCustomerProperties] = React.useState([]);
     const [customerRentals, setCustomerRentals] = React.useState([]);
+    const [user, setUser] = React.useState({})
     const router = useRouter();
 
     useEffect(() => {
         Promise.all([
             http.get("/api/get-customer-properties"),
             http.get("/api/get-customer-rentals"),
+            http.get("/api/me"),
         ]).then((res) => {
-            res.forEach(({data}) => {
+            res.forEach(async ({data}) => {
                 if (data.properties) {
                     setCustomerProperties(data.properties);
                 } else if (data.customerRentals) {
                     setCustomerRentals(data.customerRentals);
+                }else if (data.userId){
+                    const user = (await http.get(`/api/get-user?id=${data.userId}`)).data.user
+                    setUser(user)
                 }
             });
         });
@@ -132,7 +137,7 @@ const AdminDashboard = () => {
                 sx={{height: "300px"}}
             >
                 <Typography variant="h2" align="center" sx={{fontWeight: "bold"}}>
-                    Hi, Welcome to your dashboard
+                    Hi {user.fullname}, Welcome to your dashboard
                 </Typography>
             </Grid>
 
