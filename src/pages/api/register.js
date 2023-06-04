@@ -62,6 +62,7 @@ export default async function handler(req, res) {
         return res.status(200).send({ success: true });
       }
     } catch (error) {
+      console.log(error)
       return res.status(400).json("System error. please try again later.");
     }
   }
