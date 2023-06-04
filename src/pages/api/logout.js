@@ -5,7 +5,7 @@ export default async function logout(req, res) {
     try {
       res.setHeader(
         "Set-Cookie",
-        "tmsToken=; HttpOnly; Secure; SameSite=Strict; Path=/; Max-Age=0"
+        "tmsToken=; HttpOnly; SameSite=Strict; Path=/; Max-Age=0"
       );
 
       return res.status(200).json({ message: "Successfully logged out" });
