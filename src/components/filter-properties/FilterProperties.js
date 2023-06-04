@@ -7,6 +7,8 @@ export const FilterProperties = ({ onResponseRecieved }) => {
     price: "",
     maxPrice: "",
     location: "",
+    startDate: "",
+    endDate: "",
   });
 
   const handleChange = (e) => {
@@ -19,7 +21,16 @@ export const FilterProperties = ({ onResponseRecieved }) => {
           : e.target.value,
     });
   };
-
+  const handleReset = (e) => {
+    e.preventDefault();
+    setFilters({
+      price: "",
+      maxPrice: "",
+      location: "",
+      startDate: "",
+      endDate: "",
+    })
+  }
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -30,8 +41,26 @@ export const FilterProperties = ({ onResponseRecieved }) => {
 
   return (
     <>
-      <form onSubmit={handleSubmit} style={{ width: "100%" }}>
+      <form onSubmit={handleSubmit} onReset={handleReset} style={{ width: "100%" }}>
         <Grid container justifyContent="center" alignItems="center" spacing={2}>
+          <Grid item>
+            <TextField
+                label="Start Date"
+                name="startDate"
+                type="date"
+                value={filters.startDate}
+                onChange={handleChange}
+            />
+          </Grid>
+          <Grid item>
+            <TextField
+                label="End Date"
+                name="endDate"
+                type="date"
+                value={filters.endDate}
+                onChange={handleChange}
+            />
+          </Grid>
           <Grid item>
             <TextField
               label="Minimum price"
@@ -59,8 +88,11 @@ export const FilterProperties = ({ onResponseRecieved }) => {
             />
           </Grid>
           <Grid item>
-            <Button type="submit" variant="contained" size="large">
+            <Button type="submit" variant="contained" size="large" sx={{width: '150px', mr: 2, height: '40px', fontSize: '16px'}}>
               Filter
+            </Button>
+            <Button type="reset" variant="contained" size="large" sx={{width: '200px', height: '40px', fontSize: '16px'}}>
+              Reset Filter
             </Button>
           </Grid>
         </Grid>

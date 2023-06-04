@@ -61,11 +61,11 @@ export default function Home({ properties }) {
                   <Grid item key={_id}>
                     <Card sx={{ p: 5 }}>
                       <img style={{borderRadius: "3vmin",height:"100px"}} src={image}></img>
-                      <Typography variant="h3">{propertyName}</Typography>
-                      <Typography variant="span">{propertyAddress}</Typography>
-                      <Typography variant="span">{price}</Typography>
+                      <Typography variant="h3">{propertyAddress}</Typography>
+                      <Typography variant="span">{propertyName}</Typography>
+                      <Typography variant="span">  {price}</Typography>
                       <Button onClick={() => router.push(`/pdp/${_id}`)}>
-                        See more
+                           See more
                       </Button>
                     </Card>
                   </Grid>
@@ -76,7 +76,7 @@ export default function Home({ properties }) {
             }
           )
         ) : (
-          <Typography>   No properties found</Typography>
+          <Typography>       No properties found</Typography>
         )}
       </Grid>
     </>

@@ -58,6 +58,8 @@ const AdminDashboard = () => {
         propertyName: "",
         propertyAddress: "",
         price: "",
+        startDate: "",
+        endDate: "",
         propertyDescription: "",
         image: null,
     });
@@ -91,6 +93,8 @@ const AdminDashboard = () => {
         let value
         switch (name) {
             case "price": value = Number(e.target.value); break
+            case "startDate": value = e.target.value; break
+            case "endDate": value = e.target.value; break
             case "image": value = await toBase64(e.target.files[0]); break
             default: value = e.target.value
 
@@ -235,6 +239,26 @@ const AdminDashboard = () => {
                                 type="number"
                                 onChange={handleNewPropertyValuesChange}
                                 label="Property Price"
+                            />
+                        </Grid>
+                        <Grid item xs={12}>
+                            <TextField
+                                fullWidth
+                                name="startDate"
+                                value={newPropertyValues.startDate}
+                                type="Date"
+                                onChange={handleNewPropertyValuesChange}
+                                label="Property Start Date"
+                            />
+                        </Grid>
+                        <Grid item xs={12}>
+                            <TextField
+                                fullWidth
+                                name="endDate"
+                                value={newPropertyValues.endDate}
+                                type="Date"
+                                onChange={handleNewPropertyValuesChange}
+                                label="Property End Date"
                             />
                         </Grid>
                         <Grid item xs={12}>
