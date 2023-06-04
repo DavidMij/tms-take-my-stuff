@@ -10,7 +10,7 @@ export async function middleware(request) {
       jwt?.value || "",
       new TextEncoder().encode(process.env.TOKEN_SECRET)
     );
-    console.log(process.env.TOKEN_SECRET)
+
     if (payload) {
       return NextResponse.next();
     }

@@ -6,7 +6,7 @@ export default async function getProperties(req, res) {
   await dbConnect();
 
   if (method === "POST") {
-    const { price, location, maxPrice,startDate, endDate } = req.body;
+    const { price, location, maxPrice,startDate, endDate, category } = req.body;
 
     const filters = {};
     if (price && maxPrice) {
@@ -27,6 +27,10 @@ export default async function getProperties(req, res) {
       filters.startDate = { $gte: new Date(startDate)}
     }else if (!startDate && endDate){
       filters.endDate = { $lte: new Date(endDate) }
+    }
+
+    if (category){
+      filters.category = { $regex: category, $options: "i" }
     }
 
     try {

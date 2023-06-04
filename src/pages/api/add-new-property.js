@@ -8,7 +8,7 @@ export default async function addNewProperty(req, res) {
 
     if (method === "POST") {
         try {
-            const {propertyName, propertyAddress, propertyDescription, price, image, startDate, endDate} =
+            const {propertyName, propertyAddress, propertyDescription, price, image, startDate, endDate, category} =
                 req.body;
             const userId = await extractUserIdFromCookies(req.headers.cookie);
 
@@ -20,7 +20,8 @@ export default async function addNewProperty(req, res) {
                 userId,
                 startDate,
                 endDate,
-                image
+                image,
+                category
             });
 
             const savedProperty = await newProperty.save();

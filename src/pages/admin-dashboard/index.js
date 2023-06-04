@@ -2,19 +2,21 @@ import React, {useEffect} from "react";
 import {
     Box,
     Button,
+    Dialog,
+    Divider,
     Grid,
+    MenuItem,
+    Select,
+    styled,
     Tab,
     Tabs,
-    Typography,
-    Dialog,
     TextField,
-    Divider,
-    styled,
+    Typography
 } from "@mui/material";
 import http from "../../axios";
 import AddIcon from "@mui/icons-material/Add";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
-import { useRouter } from "next/router";
+import {useRouter} from "next/router";
 
 function TabPanel(props) {
     const {children, value, index, ...other} = props;
@@ -54,6 +56,7 @@ const StyledDialog = styled(Dialog)`
 const AdminDashboard = () => {
     const [selectedTab, setSelectedTab] = React.useState(0);
     const [isDialogOpen, setIsDialogOpen] = React.useState(false);
+    const [category, setCategory] = React.useState('');
     const [newPropertyValues, setNewPropertyValues] = React.useState({
         propertyName: "",
         propertyAddress: "",
@@ -65,6 +68,17 @@ const AdminDashboard = () => {
     });
     const [customerProperties, setCustomerProperties] = React.useState([]);
     const [customerRentals, setCustomerRentals] = React.useState([]);
+    const [openCategory, setOpenCategory] = React.useState(false);
+    const handleCategoryChange = (e) => {
+        e.preventDefault()
+        setCategory(e.target.value);
+    };
+    const handleCategoryClose = () => {
+        setOpenCategory(false);
+    };
+    const handleCategoryOpen = () => {
+        setOpenCategory(true);
+    };
     const [user, setUser] = React.useState({})
     const router = useRouter();
 
@@ -79,7 +93,7 @@ const AdminDashboard = () => {
                     setCustomerProperties(data.properties);
                 } else if (data.customerRentals) {
                     setCustomerRentals(data.customerRentals);
-                }else if (data.userId){
+                } else if (data.userId) {
                     const user = (await http.get(`/api/get-user?id=${data.userId}`)).data.user
                     setUser(user)
                 }
@@ -97,16 +111,25 @@ const AdminDashboard = () => {
         const name = e.target.name;
         let value
         switch (name) {
-            case "price": value = Number(e.target.value); break
-            case "startDate": value = e.target.value; break
-            case "endDate": value = e.target.value; break
-            case "image": value = await toBase64(e.target.files[0]); break
-            default: value = e.target.value
+            case "price":
+                value = Number(e.target.value);
+                break
+            case "startDate":
+                value = e.target.value;
+                break
+            case "endDate":
+                value = e.target.value;
+                break
+            case "image":
+                value = await toBase64(e.target.files[0]);
+                break
+            default:
+                value = e.target.value
 
         }
         setNewPropertyValues({
             ...newPropertyValues,
-            [name]:value
+            [name]: value
         });
     };
 
@@ -118,7 +141,7 @@ const AdminDashboard = () => {
         e.preventDefault();
 
 
-        http.post("/api/add-new-property", newPropertyValues).then((res) => {
+        http.post("/api/add-new-property", {...newPropertyValues, category: category}).then((res) => {
             if (res.status === 200) {
                 setNewPropertyValues(
                     {...newPropertyValues}
@@ -266,6 +289,25 @@ const AdminDashboard = () => {
                                 label="Property End Date"
                             />
                         </Grid>
+
+                        <Grid item xs={12} >
+                            <Select
+                                sx={{width: "150px"}}
+                                label="Category"
+                                open={openCategory}
+                                onClose={handleCategoryClose}
+                                onOpen={handleCategoryOpen}
+                                value={category}
+                                onChange={handleCategoryChange}
+                            >
+                                <MenuItem value=""><em>None</em></MenuItem>
+                                <MenuItem value={"room"}>Room</MenuItem>
+                                <MenuItem value={"garage"}>Garage</MenuItem>
+                                <MenuItem value={"parking"}>Parking</MenuItem>
+                                <MenuItem value={"balcony"}>Balcony</MenuItem>
+                            </Select>
+                        </Grid>
+
                         <Grid item xs={12}>
                             <TextField
                                 fullWidth
@@ -289,7 +331,8 @@ const AdminDashboard = () => {
                                     onChange={handleNewPropertyValuesChange}
                                 />
                             </Button>
-                            <img style={{marginLeft: "1rem",width:"100%",height:"auto"}} src={newPropertyValues?.image}></img>
+                            <img style={{marginLeft: "1rem", width: "100%", height: "auto"}}
+                                 src={newPropertyValues?.image}></img>
                         </Grid>
 
                         <Grid item xs={12}>

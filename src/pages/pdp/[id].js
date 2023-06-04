@@ -63,6 +63,7 @@ export const PDP = () => {
                          endDate,
                          startDate,
                          _id,
+                         category,
                          userId,
                      }) => {
                         return (
@@ -72,6 +73,7 @@ export const PDP = () => {
                                     {propertyName}
                                 </Typography>
                                 <Typography>Address: {propertyAddress}</Typography>
+                                <Typography>Category: {category}</Typography>
                                 <Typography>Price: {price}</Typography>
                                 <Typography>Start Date: {new Date(startDate).toDateString()}</Typography>
                                 <Typography>End Date: { new Date(endDate).toDateString()}</Typography>
