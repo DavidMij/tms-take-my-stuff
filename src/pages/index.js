@@ -51,12 +51,12 @@ export default function Home({properties}) {
                         ({_id, propertyName, propertyAddress, price, image, isRented}) => {
                             if (!isRented) {
                                 return (
-                                    <Grid item key={_id}>
+                                    <Grid item sx={{width: '300px'}} key={_id}>
                                         <Card sx={{p: 5}}>
                                             <img style={{borderRadius: "3vmin", height: "100px"}} src={image}></img>
-                                            <Typography variant="h3">{propertyAddress}</Typography>
-                                            <Typography variant="span">{propertyName}</Typography>
-                                            <Typography variant="span">  {price}</Typography>
+                                            <Typography variant="h3" sx={{width: '100%' ,overflow: 'hidden', textOverflow: 'ellipse'}} title={propertyAddress}>{propertyAddress}</Typography>
+                                            <Typography variant="span" sx={{width: '100%' ,overflow: 'hidden', textOverflow: 'ellipse'}}>{propertyName}</Typography>
+                                            <Typography variant="span" sx={{width: '100%' ,overflow: 'hidden', textOverflow: 'ellipse'}}>  {price}</Typography>
                                             <Button onClick={() => router.push(`/pdp/${_id}`)}>
                                                 See more
                                             </Button>
