@@ -5,7 +5,9 @@ import http from "../../axios";
 export const FilterProperties = ({onResponseRecieved}) => {
     const [filters, setFilters] = useState({
         price: "",
+        space: "",
         maxPrice: "",
+        maxSpace: "",
         location: "",
         startDate: "",
         endDate: "",
@@ -18,7 +20,7 @@ export const FilterProperties = ({onResponseRecieved}) => {
         setFilters({
             ...filters,
             [name]:
-                name === "price" || name === "maxPrice"
+                name === "price" || name === "maxPrice" || name === "space" || name === "maxSpace"
                     ? Number(e.target.value)
                     : e.target.value,
         });
@@ -27,7 +29,9 @@ export const FilterProperties = ({onResponseRecieved}) => {
         e.preventDefault();
         setFilters({
             price: "",
+            space: "",
             maxPrice: "",
+            maxSpace: "",
             location: "",
             startDate: "",
             endDate: "",
@@ -107,6 +111,24 @@ export const FilterProperties = ({onResponseRecieved}) => {
                             name="maxPrice"
                             type="number"
                             value={filters.maxPrice}
+                            onChange={handleChange}
+                        />
+                    </Grid>
+                    <Grid item>
+                        <TextField
+                            label="Minimum space"
+                            name="space"
+                            type="number"
+                            value={filters.space}
+                            onChange={handleChange}
+                        />
+                    </Grid>
+                    <Grid item>
+                        <TextField
+                            label="Maximum space"
+                            name="maxSpace"
+                            type="number"
+                            value={filters.maxSpace}
                             onChange={handleChange}
                         />
                     </Grid>

@@ -61,6 +61,7 @@ const AdminDashboard = () => {
         propertyName: "",
         propertyAddress: "",
         price: "",
+        space: "",
         startDate: "",
         endDate: "",
         propertyDescription: "",
@@ -112,6 +113,9 @@ const AdminDashboard = () => {
         let value
         switch (name) {
             case "price":
+                value = Number(e.target.value);
+                break
+            case "space":
                 value = Number(e.target.value);
                 break
             case "startDate":
@@ -267,6 +271,16 @@ const AdminDashboard = () => {
                                 type="number"
                                 onChange={handleNewPropertyValuesChange}
                                 label="Property Price"
+                            />
+                        </Grid>
+                        <Grid item xs={12}>
+                            <TextField
+                                fullWidth
+                                name="space"
+                                value={newPropertyValues.price}
+                                type="number"
+                                onChange={handleNewPropertyValuesChange}
+                                label="Property space (sqr fit)"
                             />
                         </Grid>
                         <Grid item xs={12}>

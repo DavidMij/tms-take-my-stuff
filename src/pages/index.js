@@ -24,7 +24,7 @@ export default function Home({properties}) {
                 <Typography
                     variant="h1"
                     align="center"
-                    sx={{fontSize: "60px", fontWeight: "bold"}}
+                    sx={{fontSize: "90px", fontWeight: "bold"}}
                 >
                     Can we help you with storage?
                 </Typography>
@@ -32,7 +32,7 @@ export default function Home({properties}) {
                 <Typography
                     variant="h3"
                     align="center"
-                    sx={{fontSize: "25px", mt: 2}}
+                    sx={{fontSize: "35px", mt: 2}}
                 >
                     Find more than thousands of storage places and providers near you the
                     easy way
@@ -48,7 +48,7 @@ export default function Home({properties}) {
             <Grid container sx={{mt: 5, mb: 15}} spacing={3}>
                 {filteredProperties?.length > 0 && !isAllPropertiesRented ? (
                     filteredProperties.map(
-                        ({_id, propertyName, propertyAddress, price, image, isRented}) => {
+                        ({_id, propertyName, propertyAddress, price, image, isRented, space}) => {
                             if (!isRented) {
                                 return (
                                     <Grid item sx={{width: '300px'}} key={_id}>
@@ -57,6 +57,7 @@ export default function Home({properties}) {
                                             <Typography variant="h3" sx={{width: '100%' ,overflow: 'hidden', textOverflow: 'ellipse'}} title={propertyAddress}>{propertyAddress}</Typography>
                                             <Typography variant="span" sx={{width: '100%' ,overflow: 'hidden', textOverflow: 'ellipse'}}>{propertyName}</Typography>
                                             <Typography variant="span" sx={{width: '100%' ,overflow: 'hidden', textOverflow: 'ellipse'}}>  {price}</Typography>
+                                            <Typography variant="span" sx={{width: '100%' ,overflow: 'hidden', textOverflow: 'ellipse'}}>  {space}</Typography>
                                             <Button onClick={() => router.push(`/pdp/${_id}`)}>
                                                 See more
                                             </Button>

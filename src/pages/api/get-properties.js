@@ -6,7 +6,7 @@ export default async function getProperties(req, res) {
   await dbConnect();
 
   if (method === "POST") {
-    const { price, location, maxPrice,startDate, endDate, category } = req.body;
+    const { price, location, maxPrice,startDate, endDate, category, space, maxSpace } = req.body;
 
     const filters = {};
     if (price && maxPrice) {
@@ -31,6 +31,14 @@ export default async function getProperties(req, res) {
 
     if (category){
       filters.category = { $regex: category, $options: "i" }
+    }
+
+    if (space && maxSpace) {
+      filters.price = { $gte: Number(space), $lt: Number(maxSpace) };
+    } else if (space) {
+      filters.price = { $gte: Number(space) };
+    } else if (maxSpace) {
+      filters.price = { $lt: Number(maxSpace) };
     }
 
     try {

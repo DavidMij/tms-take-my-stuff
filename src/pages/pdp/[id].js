@@ -73,20 +73,22 @@ export const PDP = () => {
                              startDate,
                              _id,
                              category,
+                            space,
                              userId,
                          }) => {
                             return (
                                 <Grid item key={_id}>
                                     <img style={{borderRadius: "3vmin", height: "200px"}} src={image}></img>
                                     <Typography variant="h2" sx={{mb: 2, fontWeight: "bold"}}>
-                                        {propertyName}
+                                        {propertyAddress}
                                     </Typography>
-                                    <Typography>Address: {propertyAddress}</Typography>
-                                    <Typography>Category: {category}</Typography>
-                                    <Typography>Price: {price}</Typography>
-                                    <Typography>Start Date: {new Date(startDate).toDateString()}</Typography>
-                                    <Typography>End Date: {new Date(endDate).toDateString()}</Typography>
-                                    <Typography>Description: {propertyDescription}</Typography>
+                                    <Typography variant="h5" >Name: {propertyName}</Typography>
+                                    <Typography variant="h5" >Category: {category}</Typography>
+                                    <Typography variant="h5" >Price: {price}</Typography>
+                                    <Typography variant="h5" >Space: {space}</Typography>
+                                    <Typography variant="h5" >Start Date: {new Date(startDate).toDateString()}</Typography>
+                                    <Typography variant="h5" >End Date: {new Date(endDate).toDateString()}</Typography>
+                                    <Typography variant="h5" >Description: {propertyDescription}</Typography>
                                     <Grid item>
                                         <Button
                                             disabled={isRented}

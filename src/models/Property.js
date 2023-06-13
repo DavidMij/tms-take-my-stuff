@@ -19,6 +19,10 @@ const propertySchema = new mongoose.Schema({
         type: Number,
         required: true,
     },
+    space: {
+        type: Number,
+        required: true,
+    },
     propertyDescription: {
         type: String,
         required: true,
