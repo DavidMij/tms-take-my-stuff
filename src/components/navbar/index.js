@@ -93,7 +93,7 @@ export const Navbar = () => {
                         <>
                             <Grid item>
                                 <Button
-                                    onClick={() => router.push("/About")}
+                                    onClick={() => router.push("/about")}
                                     size="large"
                                     sx={{fontSize: "18px"}}
                                 >
