@@ -277,7 +277,7 @@ const AdminDashboard = () => {
                             <TextField
                                 fullWidth
                                 name="space"
-                                value={newPropertyValues.price}
+                                value={newPropertyValues.space}
                                 type="number"
                                 onChange={handleNewPropertyValuesChange}
                                 label="Property space (sqr fit)"

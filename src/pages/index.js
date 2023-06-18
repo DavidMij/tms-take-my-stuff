@@ -39,26 +39,26 @@ export default function Home({properties}) {
                 </Typography>
             </Hero>
 
-            <Grid container alignItems="center" sx={{height: "100%"}}>
-                <Card sx={{width: "100%", p: 2}}>
+            <Grid container spacing={{ xs: 2, md: 4 }} alignItems="center" sx={{height: '250px'}}>
+                <Card sx={{width: "100%", p: 5}}>
                     <FilterProperties onResponseRecieved={handleFilteredResponse}/>
                 </Card>
             </Grid>
 
-            <Grid container sx={{mt: 5, mb: 15}} spacing={3}>
+            <Grid container spacing={{ xs: 2, md: 4 }} columns={{ xs: 4, sm: 8, md: 10 }}>
                 {filteredProperties?.length > 0 && !isAllPropertiesRented ? (
                     filteredProperties.map(
                         ({_id, propertyName, propertyAddress, price, image, isRented, space}) => {
                             if (!isRented) {
                                 return (
-                                    <Grid item sx={{width: '300px'}} key={_id}>
-                                        <Card sx={{p: 5}}>
+                                    <Grid item xs={2} sm={2} md={2} key={_id}>
+                                        <Card sx={{p: 7, backgroundColor: "#ffefef", height: '200px'}}>
                                             <img style={{borderRadius: "3vmin", height: "100px"}} src={image}></img>
                                             <Typography variant="h3" sx={{width: '100%' ,overflow: 'hidden', textOverflow: 'ellipse'}} title={propertyAddress}>{propertyAddress}</Typography>
                                             <Typography variant="span" sx={{width: '100%' ,overflow: 'hidden', textOverflow: 'ellipse'}}>{propertyName}</Typography>
-                                            <Typography variant="span" sx={{width: '100%' ,overflow: 'hidden', textOverflow: 'ellipse'}}>  {price}</Typography>
+                                            <Typography variant="span" sx={{width: '100%' ,overflow: 'hidden', textOverflow: 'ellipse'}}>  {price}$</Typography>
                                             <Typography variant="span" sx={{width: '100%' ,overflow: 'hidden', textOverflow: 'ellipse'}}>  {space}</Typography>
-                                            <Button onClick={() => router.push(`/pdp/${_id}`)}>
+                                            <Button size="large" onClick={() => router.push(`/pdp/${_id}`)}>
                                                 See more
                                             </Button>
                                         </Card>

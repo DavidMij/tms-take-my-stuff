@@ -84,7 +84,7 @@ export const PDP = () => {
                                     </Typography>
                                     <Typography variant="h5" >Name: {propertyName}</Typography>
                                     <Typography variant="h5" >Category: {category}</Typography>
-                                    <Typography variant="h5" >Price: {price}</Typography>
+                                    <Typography variant="h5" >Price: {price}$</Typography>
                                     <Typography variant="h5" >Space: {space}</Typography>
                                     <Typography variant="h5" >Start Date: {new Date(startDate).toDateString()}</Typography>
                                     <Typography variant="h5" >End Date: {new Date(endDate).toDateString()}</Typography>

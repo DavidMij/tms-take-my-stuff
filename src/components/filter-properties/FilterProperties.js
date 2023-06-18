@@ -25,7 +25,7 @@ export const FilterProperties = ({onResponseRecieved}) => {
                     : e.target.value,
         });
     };
-    const handleReset = (e) => {
+    const handleReset = async (e) => {
         e.preventDefault();
         setFilters({
             price: "",
@@ -37,6 +37,9 @@ export const FilterProperties = ({onResponseRecieved}) => {
             endDate: "",
         })
         setCategory("");
+        await http.post("/api/get-properties", filters).then((res) => {
+            onResponseRecieved(res.data);
+        });
     }
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -84,6 +87,7 @@ export const FilterProperties = ({onResponseRecieved}) => {
                             type="date"
                             value={filters.startDate}
                             onChange={handleChange}
+                            InputLabelProps={{ shrink: true}}
                         />
                     </Grid>
                     <Grid item>
@@ -94,6 +98,7 @@ export const FilterProperties = ({onResponseRecieved}) => {
                             type="date"
                             value={filters.endDate}
                             onChange={handleChange}
+                            InputLabelProps={{ shrink: true}}
                         />
                     </Grid>
                     <Grid item>
