@@ -34,11 +34,11 @@ export default async function getProperties(req, res) {
     }
 
     if (space && maxSpace) {
-      filters.price = { $gte: Number(space), $lt: Number(maxSpace) };
+      filters.space = { $gte: Number(space), $lt: Number(maxSpace) };
     } else if (space) {
-      filters.price = { $gte: Number(space) };
+      filters.space = { $gte: Number(space) };
     } else if (maxSpace) {
-      filters.price = { $lt: Number(maxSpace) };
+      filters.space = { $lt: Number(maxSpace) };
     }
 
     try {
